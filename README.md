@@ -1,3 +1,3 @@
 # war-gas
-dd
-friend-java-application war 
+
+this is the gas-war (index's war add common's class and config )
