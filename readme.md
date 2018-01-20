@@ -24,6 +24,6 @@ this is the gas-war (index's war add common's class and config )
 完成以上三步,整个javaweb项目就部署完成了.
 
 下面贴上本人部署的一个web项目实例:
-GAS XX 政务网站(baidu)[https://www.baidu.com];
+[GAS XX 政务网站](http://index-gas.193b.starter-ca-central-1.openshiftapps.com/);
 
 
