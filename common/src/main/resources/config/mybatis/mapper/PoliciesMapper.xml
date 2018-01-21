@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.decade.gas.mapper.index.PoliciesMapper">
+
+    <resultMap id="resultPolicies" type="org.decade.gas.entity.index.PoliciesEntity">
+        <id property="policyId" column="policy_id" javaType="java.lang.String"/>
+        <result property="publishTime" column="publish_time" javaType="java.lang.String"/>
+        <result property="updateTime" column="update_time" javaType="java.lang.String"/>
+        <result property="createTime" column="create_time" javaType="java.lang.String"/>
+    </resultMap>
+    <select id="listAll" resultMap="resultPolicies">
+        SELECT
+            id,
+            policy_id,
+            title,
+            content,
+            info,
+            publish_time,
+            update_time,
+            create_time
+        FROM f_f_policies
+        WHERE state = 1
+    </select>
+
+    <insert id="insert">
+        INSERT INTO f_f_policies (id, policy_id, title, content, info, publish_time, update_time, create_time)
+        VALUES (#{id}, #{policyId}, #{title}, #{content}, #{info}, NOW(), NOW(), NOW())
+    </insert>
+
+
+</mapper>

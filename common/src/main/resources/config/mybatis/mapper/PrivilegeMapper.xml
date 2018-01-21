@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.decade.gas.mapper.admin.PrivilegeMapper">
+
+    <resultMap id="resultPrivilege" type="org.decade.gas.entity.admin.PrivilegeEntity">
+        <result property="privilegeId" column="privilege_id" javaType="java.lang.String"/>
+        <result property="updateTime" column="update_time" javaType="java.lang.String"/>
+        <result property="createTime" column="create_time" javaType="java.lang.String"/>
+    </resultMap>
+    <resultMap id="resultPriWithRole" type="org.decade.gas.entity.admin.PrivilegeEntity" extends="resultPrivilege">
+        <collection property="roles" resultMap="resultRole"></collection>
+    </resultMap>
+    <resultMap id="resultRole" type="org.decade.gas.entity.admin.BFRoleEntity">
+        <result property="roleId" column="rId"/>
+        <result property="name" column="rname"/>
+    </resultMap>
+
+    <select id="select" resultMap="resultPrivilege">
+        SELECT
+        privilege_id,
+        name,
+        resume,
+        state,
+        update_time,
+        create_time
+        FROM b_f_privilege
+        WHERE state=1
+        <if test="name!=null">AND name like #{name}</if>
+        <if test="resume!=null">AND resume like #{resume}</if>
+    </select>
+
+    <select id="listAll" resultMap="resultPrivilege">
+        SELECT
+            privilege_id,
+            name,
+            resume,
+            state,
+            update_time,
+            create_time
+        FROM b_f_privilege
+        WHERE state = 1
+    </select>
+
+    <select id="searchList" resultMap="resultPrivilege">
+        SELECT
+        privilege_id,
+        name,
+        resume,
+        state,
+        update_time,
+        create_time
+        FROM b_f_privilege
+        WHERE state = 1
+        <if test="name!=null">and name like #{name}</if>
+        <if test="resume!=null">and resume like #{resume}</if>
+    </select>
+
+    <select id="searchWithRole" resultMap="resultPriWithRole">
+        SELECT p.privilege_id, p.name, p.resume, p.state, p.update_time, p.create_time,
+        r.role_id as rId,r.name as rname
+        FROM b_f_privilege p,b_f_lk_role_privilege lk,b_f_role r
+        WHERE r.state = 1 and p.state=1
+        AND lk.privilege_id=p.privilege_id AND lk.role_id=r.role_id
+        <if test="name!=null">and p.name like #{name}</if>
+        <if test="resume!=null">and p.resume like #{resume}</if>
+    </select>
+
+    <insert id="insert">
+        INSERT INTO b_f_privilege (privilege_id, name, resume, state, update_time, create_time)
+        VALUES (#{privilegeId}, #{name}, #{resume}, #{state}, NOW(), now())
+    </insert>
+
+
+</mapper>
