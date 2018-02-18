@@ -27,3 +27,5 @@ this is the gas-war (index's war add common's class and config )
 [GAS XX 政务网站](http://gas1-gas.193b.starter-ca-central-1.openshiftapps.com/);
 
 
+LOG:
+2-18-11-29 : BACK .WAR
